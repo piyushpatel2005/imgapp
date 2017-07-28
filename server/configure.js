@@ -1,4 +1,5 @@
 var path = require('path'),
+    fs = require('fs'),
     routes = require('./routes'),
     exphbs = require('express-handlebars'),
     express = require('express'),
@@ -7,17 +8,18 @@ var path = require('path'),
     morgan = require('morgan'),
     methodOverride = require('method-override'),
     errorHandler = require('errorhandler'),
-    moment = require('moment');
+    moment = require('moment'),
+    multer = require('multer');
+var upload = multer({dest: "public/upload/temp/"});
+
 
 module.exports = function(app) {
   app.use(morgan('dev'));
 
-  app.use(bodyParser({
-    uploadDir: path.join(__dirname, 'public/upload/temp')
-  }));
-  // app.use(bodyParser.urlencoded({'extended': true}));
+  app.use(upload.single('file'));
+  app.use(bodyParser.urlencoded({'extended': true}));
 
-  // app.use(bodyParser.json());
+  app.use(bodyParser.json());
   app.use(methodOverride());
   app.use(cookieParser('some-secret-value-here'));
 
