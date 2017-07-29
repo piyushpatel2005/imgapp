@@ -1,39 +1,37 @@
 var fs = require('fs'),
     path = require('path');
 
+var sidebar = require("../helpers/sidebar"),
+    Models = require('../models');
+
 module.exports = {
   index: function(req, res) {
     var viewModel = {
-      image: {
-        uniqueId: 1,
-        title: 'Sample Image 1',
-        description: "This is a sample 1",
-        filename: 'sample1.jpg',
-        views: 0,
-        likes: 0,
-        timestamp: Date.now()
-      },
-      comments: [
-        {
-          image_id: 1,
-          email: 'test@test.com',
-          name: 'Test',
-          gravatar: 'http://lorempixel.com/75/75/animals/1',
-          comment: 'This is test..',
-          timestamp: Date.now()
-        },
-        {
-          image_id: 1,
-          email: 'test@test.com',
-          name: 'Test',
-          gravatar: 'http://lorempixel.com/75/75/animals/2',
-          comment: 'Another comment.',
-          timestamp: Date.now()
-        }
-      ]
+      image: {},
+      comments: []
     };
 
-    res.render('image', viewModel);
+    Models.Image.findOne({filename: {$regex: req.params.image_id}}, function(err, image) {
+      if(err) throw err;
+
+      // If there is any image with this name
+      if(image) {
+        image.views = image.views + 1;
+        viewModel.image = image;
+        image.save();
+
+        Models.Comment.find({ image_id: image._id }, {}, {$sort: { timestamp: 1 }}, function(err, comments) {
+          if(err) throw err;
+          viewModel.comments = comments;
+
+          sidebar(viewModel, function(viewModel) {
+            res.render('image', viewModel);
+          });
+        });
+      } else {
+        res.redirect('/');
+      }
+    });
   },
   create: function(req, res) {
     var saveImage = function () {
@@ -75,7 +73,7 @@ module.exports = {
     // console.log(req.files[0]);
   },
   like: function(req, res) {
-    res.send("The image: like POST controller");
+    res.json({likes: 1});
   },
   comment: function(req, res) {
     res.send("The image: comment POST controller");
