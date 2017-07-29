@@ -8,7 +8,7 @@ module.exports = function(viewModel, callback) {
 
   async.parallel([
     function(next) {
-      next(null, Stats());
+      Stats(next);
     },
     function(next) {
       next(null, Images.popular());
