@@ -25,6 +25,7 @@ module.exports = {
           viewModel.comments = comments;
 
           sidebar(viewModel, function(viewModel) {
+            console.log(viewModel);
             res.render('image', viewModel);
           });
         });
@@ -35,7 +36,7 @@ module.exports = {
   },
   create: function(req, res) {
     var saveImage = function () {
-      console.log(req.file);
+      // console.log(req.file);
       var possible = 'abcdefghijklmnopqrstuvwxyz0123456789';
       var imgUrl = '';
 
@@ -44,31 +45,46 @@ module.exports = {
         imgUrl += possible.charAt(Math.floor(Math.random() * possible.length));
       }
       // console.log(imgUrl);
-      var ext = path.extname(req.file.originalname);
-      // console.log('extname: ', ext);
-      var tempPath = path.join(__dirname, '../public/upload/temp/', req.file.filename);
-      // console.log("file temp name ", tempPath);
-      var targetPath = path.resolve(__dirname + '/../public/upload/' + imgUrl + ext);
-      // console.log("targetPath: ", targetPath);
-      if(ext === '.png' || ext === '.jpg' || ext === 'jpeg' || ext === '.gif') {
-        fs.rename(tempPath, targetPath, function(err) {
-          if(err) {
-            console.log("Error in moving file");
-            throw err;
+      Models.Image.find({filename: imgUrl}, function(err, images) {
+        if(images.length > 0) {
+          saveImage();
+        } else {
+          var ext = path.extname(req.file.originalname).toLowerCase();
+          // console.log('extname: ', ext);
+          var tempPath = path.join(__dirname, '../public/upload/temp/', req.file.filename);
+          // console.log("file temp name ", tempPath);
+          var targetPath = path.resolve(__dirname + '/../public/upload/' + imgUrl + ext);
+          // console.log("targetPath: ", targetPath);
+          if(ext === '.png' || ext === '.jpg' || ext === 'jpeg' || ext === '.gif') {
+            fs.rename(tempPath, targetPath, function(err) {
+              if(err) {
+                console.log("Error in moving file");
+                throw err;
+              }
+
+              // res.redirect('/images/' + imgUrl);
+              var newImg = new Models.Image({
+                title: req.body.title,
+                description: req.body.description,
+                filename: imgUrl + ext
+              });
+              newImg.save(function (err, image) {
+                console.log("Successfully inserted image " + image.filename);
+                res.redirect("images/" + image.uniqueId);
+              });
+            });
+          } else {
+            fs.unlink(tempPath, function (err) {
+              if(err) throw err;
+
+              res.status(500).json({
+                error: "Only image files are allowed"
+              });
+            });
           }
-
-          res.redirect('/images/' + imgUrl);
-        });
-      } else {
-        fs.unlink(tempPath, function (err) {
-          if(err) throw err;
-
-          res.status(500).json({
-            error: "Only image files are allowed"
-          });
-        })
-      }
-    }
+        }
+      });
+    };
     saveImage();
     // console.log(req.files[0]);
   },
