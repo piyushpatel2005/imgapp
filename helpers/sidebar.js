@@ -11,7 +11,7 @@ module.exports = function(viewModel, callback) {
       Stats(next);
     },
     function(next) {
-      next(null, Images.popular());
+      Images.popular(next);
     },
     function(next) {
       Comments.newest(next);
