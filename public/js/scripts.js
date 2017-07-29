@@ -12,11 +12,11 @@ $(document).ready(function() {
     var imgId = $(this).data('id');
     console.log(imgId);
 
-    $.post("/images/" + imgId + "/like").done(function(data) {
+    $.get("/images/" + imgId + "/like").done(function(data) {
       console.log(data);
       $(".likes-count").text(data.likes);
     }).fail(function() {
-      console.log("Post failed");
+      console.log("Failed to get the likes count");
     });
   });
 });
