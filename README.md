@@ -23,10 +23,11 @@
     npm Install
     ```
 
+    - Make sure that `mongod` is running. Then, you can proceed to next step.
+
     To run the application, from the root of the project, execute following command:
 
     `npm start`
 
     This will launch the server on port 3300. You can visit the app at:
     [http://localhost:3300](http://localhost:3300).
-    

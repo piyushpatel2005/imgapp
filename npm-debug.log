@@ -1,0 +1,61 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'uninstall', '--save-dev' ]
+2 info using npm@3.10.10
+3 info using node@v6.11.0
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readGlobalPackageData
+7 silly install normalizeTree
+8 silly loadCurrentTree Finishing
+9 silly loadIdealTree Starting
+10 silly install loadIdealTree
+11 silly cloneCurrentTree Starting
+12 silly install cloneCurrentTreeToIdealTree
+13 silly cloneCurrentTree Finishing
+14 silly loadShrinkwrap Starting
+15 silly install loadShrinkwrap
+16 silly loadShrinkwrap Finishing
+17 silly loadAllDepsIntoIdealTree Starting
+18 silly uninstall loadAllDepsIntoIdealtree
+19 silly loadAllDepsIntoIdealTree Finishing
+20 silly loadIdealTree Finishing
+21 silly currentTree lib
+22 silly idealTree lib
+23 silly generateActionsToTake Starting
+24 silly install generateActionsToTake
+25 silly generateActionsToTake Finishing
+26 silly diffTrees action count 0
+27 silly decomposeActions action count 0
+28 silly runTopLevelLifecycles Starting
+29 silly executeActions Starting
+30 silly install executeActions
+31 silly doSerial global-install 0
+32 silly doParallel fetch 0
+33 verbose correctMkdir /home/pc/.npm/_locks correctMkdir not in flight; initializing
+34 verbose lock using /home/pc/.npm/_locks/staging-a072192f34a17023.lock for /usr/lib/node_modules/.staging
+35 verbose unlock done using /home/pc/.npm/_locks/staging-a072192f34a17023.lock for /usr/lib/node_modules/.staging
+36 silly rollbackFailedOptional Starting
+37 silly rollbackFailedOptional Finishing
+38 silly runTopLevelLifecycles Finishing
+39 silly install printInstalled
+40 verbose stack Error: EACCES: permission denied, mkdir '/usr/lib/node_modules/.staging'
+40 verbose stack     at Error (native)
+41 verbose cwd /home/pc/Desktop/programs/nodejs/imgapp
+42 error Linux 4.4.0-83-generic
+43 error argv "/usr/bin/nodejs" "/usr/bin/npm" "uninstall" "--save-dev"
+44 error node v6.11.0
+45 error npm  v3.10.10
+46 error path /usr/lib/node_modules/.staging
+47 error code EACCES
+48 error errno -13
+49 error syscall mkdir
+50 error Error: EACCES: permission denied, mkdir '/usr/lib/node_modules/.staging'
+50 error     at Error (native)
+50 error  { Error: EACCES: permission denied, mkdir '/usr/lib/node_modules/.staging'
+50 error     at Error (native)
+50 error   errno: -13,
+50 error   code: 'EACCES',
+50 error   syscall: 'mkdir',
+50 error   path: '/usr/lib/node_modules/.staging' }
+51 error Please try running this command again as root/Administrator.
+52 verbose exit [ -13, true ]
