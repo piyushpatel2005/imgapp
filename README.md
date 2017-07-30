@@ -47,5 +47,23 @@
 
     - Rename using following command
 
-    `heroku apps:rename node-imgapp --app tranquil-woodland-6434
+    `heroku apps:rename node-imgapp --app tranquil-woodland-6434`
+
+    - Add remote for heroku
 `
+    `git remote add heroku`
+
+    - Create a "Procfile" in the root of the project.
+
+    Write following line to launch the project.
+
+    `web: node server.js`
+
+    - Create a database on [mlab.com](https://mlab.com). Give a new user with username and password and use the link to connect using mongoose.connect function in `server.js` file.
+
+    - Once all done, commit using git.
+    - Push the changes to heroku using:
+
+    `git push heroku master`
+
+    - At the end, you will get the link to launch your app.

@@ -7,7 +7,7 @@ app.set('port', process.env.PORT || 3300);
 app.set('views', __dirname + '/views');
 app = config(app);
 
-mongoose.connect("mongodb://pcp_imgapp:nectar1985@ds127783.mlab.com:27783/imgapp");
+mongoose.connect("mongodb://localhost:27017/imgapp");
 mongoose.connection.on("open", function () {
   console.log("Mongoose connected.");
 });
