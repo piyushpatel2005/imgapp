@@ -31,3 +31,21 @@
 
     This will launch the server on port 3300. You can visit the app at:
     [http://localhost:3300](http://localhost:3300).
+
+## Process to launch to Heroku
+
+    - Download Heroku CLI
+
+    - Login using:
+    `heroku login`
+
+    - Go to project repo with git, use command:
+
+    `heroku create`
+
+    This creates a random name for the app. Suppose, the name is 'tranquit-woodland-6534'.
+
+    - Rename using following command
+
+    `heroku apps:rename node-imgapp --app tranquil-woodland-6434
+`
