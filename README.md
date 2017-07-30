@@ -2,6 +2,12 @@
 
     A simple Image app for uploading images with JavaScript and MongoDB.
 
+## Working example
+
+  Here is a link to [ImgApp](https://node-imgapp.herokuapp.com/)
+
+  ![ImgApp screenshot](public/img/imgapp.png)
+
 ## Prerequisites:
 
     To get started with the app, install 'nodejs'.
